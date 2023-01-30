@@ -1,9 +1,8 @@
 const { DataTypes } = require("sequelize");
-const bcrypt = require("bcryptjs");
 
 module.exports = (sequelize, Sequelize) => {
-  const User = sequelize.define(
-    "user",
+  const File = sequelize.define(
+    "file",
     {
       id: {
         type: DataTypes.UUID,
@@ -11,35 +10,32 @@ module.exports = (sequelize, Sequelize) => {
         primaryKey: true,
         allowNull: false,
       },
-      username: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      email: {
+      path: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
       },
-      password: {
+      parentFolder: {
+        type: DataTypes.UUID,
+        allowNull: true, // change this in the future
+      },
+      type: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      size: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
     },
     {
       sequelize,
-      paranoid: true,
       timestamps: true,
       underscored: true,
-      hooks: {
-        beforeCreate: (user) => {
-          user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
-        },
-      },
-      instanceMethods: {
-        validPassword: function (password) {
-          return bcrypt.compareSync(password, this.password);
-        },
-      },
     }
   );
-  return User;
+  return File;
 };
