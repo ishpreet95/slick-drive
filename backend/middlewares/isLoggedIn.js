@@ -28,6 +28,7 @@ const isLoggedIn = async (req, res, next) => {
     req.user = foundUser;
     next();
   } catch (err) {
+    console.log(err);
     res.status(500).send({
       message: err.message,
     });

@@ -15,8 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 
 const db = require("./models");
 db.sequelize
-  .sync({ force: true })
-  // .sync()
+  // .sync({ force: true })
+  .sync()
   .then(() => {
     console.log("Synced db");
   })

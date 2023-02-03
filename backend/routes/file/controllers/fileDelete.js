@@ -8,6 +8,7 @@ const fileDelete = async (req, res) => {
     const file = await File.findOne({
       where: {
         id,
+        owner: req.user.id,
       },
     });
     if (!file) {
