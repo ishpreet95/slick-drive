@@ -8,6 +8,7 @@ const getFolder = async (req, res) => {
     const folder = await Folder.findOne({
       where: {
         id,
+        owner: req.user.id,
       },
     });
     if (!folder) {
