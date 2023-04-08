@@ -21,7 +21,6 @@ const loginUser = async (req, res) => {
 
     const passwordIsValid = bcrypt.compareSync(password, foundUser.password);
     if (!passwordIsValid) {
-      console.log(err);
       return res.status(401).send({
         accessToken: null,
         message: "Invalid Password",
