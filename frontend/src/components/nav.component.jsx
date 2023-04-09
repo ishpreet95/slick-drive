@@ -1,20 +1,20 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext } from "react";
+import UserContext from "../contexts/userContext";
 
 export default function Nav() {
+  const { isLogged, setIsLogged } = useContext(UserContext);
 
   const signOutHandler = (e) => {
     e.preventDefault();
     setIsLogged(false);
     console.log(isLogged);
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
   };
 
-  const user = localStorage.getItem("token")? true : false;
-  const [isLogged, setIsLogged] = useState(user);
-
   return (
-    <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+    <nav className="navbar navbar-expand-sm navbar-light fixed-top">
       <div className="container">
         <Link className="navbar-brand" to={"/sign-in"}>
           Slick Drive⚡
