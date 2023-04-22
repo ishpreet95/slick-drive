@@ -14,16 +14,16 @@ export default function Nav() {
   };
 
   return (
-    <nav className="navbar navbar-expand-sm navbar-light fixed-top">
+    <nav className="navbar navbar-expand-sm navbar-light">
       <div className="container">
-        <Link className="navbar-brand" to={"/sign-in"}>
+        <Link className="navbar-brand" to={"/"}>
           Slick Drive⚡
         </Link>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           {!isLogged ? (
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link className="nav-link" to={"/sign-in"}>
+                <Link className="nav-link" to={"/"}>
                   Sign In
                 </Link>
               </li>

@@ -32,60 +32,71 @@ export default function Login() {
         .catch((error) => {
           console.log(error);
           setError(true);
-          setErrorMsg(error.response.data.message[0].message || error.response.data.message);
+          setErrorMsg(
+            error.response.data.message[0].message ||
+              error.response.data.message
+          );
         });
     }
   };
 
   return (
-    <form>
-      {isLogged ? (
-        <div>
-          <div className="mb-3 text-success">You are logged in</div>
-          <div> Your username is {JSON.parse(localStorage.getItem("user")).username}</div>
-        </div>
-      ) : (
-        <div>
-          <h3>Sign In</h3>
-          <div className="mb-3">
-            <label>Email address</label>
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="form-control"
-              placeholder="Enter email"
-            />
-          </div>
-          <div className="mb-3">
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="form-control"
-              placeholder="Enter password"
-            />
-          </div>
-          {error ? <div className="mb-3 text-danger">{errorMsg}</div> : ""}
-          <div className="d-grid">
-            <button
-              type="submit"
-              className="btn btn-primary"
-              onClick={(e) => {
-                handleSubmit(e);
-              }}
-            >
-              Sign In
-            </button>
-          </div>
-          <p className="forgot-password text-right">
-            New Here? <a href="/sign-up">Sign up</a>
-          </p>
-        </div>
-      )}
-    </form>
+    <div className="auth-wrapper">
+      <div className="auth-inner">
+        <form>
+          {isLogged ? (
+            <div>
+              <div className="mb-3 text-success">You are logged in</div>
+              <div>
+                {" "}
+                Your username is{" "}
+                {JSON.parse(localStorage.getItem("user")).username}
+              </div>
+            </div>
+          ) : (
+            <div>
+              <h3>Sign In</h3>
+              <div className="mb-3">
+                <label>Email address</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="form-control"
+                  placeholder="Enter email"
+                />
+              </div>
+              <div className="mb-3">
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="form-control"
+                  placeholder="Enter password"
+                />
+              </div>
+              {error ? <div className="mb-3 text-danger">{errorMsg}</div> : ""}
+              <div className="d-grid">
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  onClick={(e) => {
+                    handleSubmit(e);
+                  }}
+                >
+                  Sign In
+                </button>
+              </div>
+              <p className="forgot-password text-right">
+                New Here? <a href="/sign-up">Sign up</a>
+              </p>
+            </div>
+          )}
+        </form>
+      </div>
+    </div>
   );
 }
