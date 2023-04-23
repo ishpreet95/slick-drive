@@ -1,11 +1,11 @@
 import File from "./file.component";
-import TableH from "./tableH.component";
 import { AiFillFileAdd as Fil } from "react-icons/ai";
 import { AiOutlinePlus as Plus } from "react-icons/ai";
 import { AiFillFolderAdd as Fold } from "react-icons/ai";
-
+import Table from "react-bootstrap/Table";
+import { BsFillArrowLeftSquareFill as Left } from "react-icons/bs";
 import Dropdown from "react-bootstrap/Dropdown";
-export default function Table() {
+export default function Altable() {
   const details = [
     {
       type: "folder",
@@ -38,12 +38,31 @@ export default function Table() {
   ];
   const filesList = details.map((detail) => <File details={detail} />);
   return (
-    <div className="file-table">
-      <TableH />
-      {filesList}
+    <Table striped bordered hover className="file-table">
+      <thead>
+        <tr>
+          <th>
+            <Left
+              style={{
+                fontSize: "2em",
+              }}
+            />
+          </th>
+          <th>Name</th>
+          <th>Size</th>
+          <th>Created On</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>{filesList}</tbody>
       <Dropdown>
         <Dropdown.Toggle className="upload-btn" variant="primary">
-          <Plus />
+          <Plus
+            style={{
+              fontSize: "1.2em",
+              padding: "3px",
+            }}
+          />
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item href="#/action-1">
@@ -70,6 +89,6 @@ export default function Table() {
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
-    </div>
+    </Table>
   );
 }

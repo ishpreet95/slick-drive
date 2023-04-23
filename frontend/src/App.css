@@ -106,56 +106,6 @@ body {
   color: #167bff;
 }
 
-.file {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
-.file-name {
-  width: 30%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* flex-grow: 5; */
-  border: 1px solid #d4d4d4;
-}
-.file-size {
-  width: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* flex-grow: 1; */
-  border: 1px solid #d4d4d4;
-}
-.file-created {
-  width: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* flex-grow: 2; */
-  border: 1px solid #d4d4d4;
-}
-.file-actions {
-  width: 40%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* flex-grow: 3; */
-  border: 1px solid #d4d4d4;
-}
-.file-table {
-  width: 85%;
-  background: #ffffff;
-  border-radius: 15px;
-  transition: all 0.3s;
-  margin: 0.4em auto;
-  padding: 1em;
-  display: flexbox;
-}
-.table-h {
-  font-weight: bold;
-  font-size: large;
-}
 .icon {
   font-size: "2em";
   border: "1px solid #d4d4d4";
@@ -172,12 +122,15 @@ body {
   width: 65px;
   height: 65px;
   font-size: 35px;
-  /* cursor: pointer; */
   margin: 0 auto;
-  /* display: flexbox;
-  justify-content: center;
-  align-items: center; */
 }
 .dropdown-toggle::after {
   display: none !important;
+}
+.file-table {
+  width: 85%;
+  background: #ffffff;
+  transition: all 0.3s;
+  margin: 0.4em auto;
+  padding: 1em;
 }
