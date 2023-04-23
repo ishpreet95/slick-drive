@@ -3,7 +3,7 @@ import { AiFillFileAdd as Fil } from "react-icons/ai";
 import { AiOutlinePlus as Plus } from "react-icons/ai";
 import { AiFillFolderAdd as Fold } from "react-icons/ai";
 import Table from "react-bootstrap/Table";
-import { BsFillArrowLeftSquareFill as Left } from "react-icons/bs";
+import { FaAngleDoubleLeft as Left } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
 export default function Altable() {
   const details = [
@@ -44,7 +44,7 @@ export default function Altable() {
           <th>
             <Left
               style={{
-                fontSize: "2em",
+                fontSize: "1.5em",
               }}
             />
           </th>
