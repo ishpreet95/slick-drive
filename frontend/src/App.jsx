@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Nav from "./components/nav.component";
 import Login from "./components/login.component";
 import SignUp from "./components/signup.component";
@@ -19,7 +19,8 @@ function App() {
           <Nav />
           {isLogged ? (
             <Routes>
-              <Route path="/" element={<Table />} />
+              <Route path="/" element={<Table />}/>
+              <Route path="/table/:id" element={<Table />}/> 
             </Routes>
           ) : (
             <Routes>
