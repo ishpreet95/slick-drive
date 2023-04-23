@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Nav from "./components/nav.component";
 import Login from "./components/login.component";
 import SignUp from "./components/signup.component";
+import Table from "./components/table.component";
 import UserContext from "./contexts/userContext";
 
 function App() {
@@ -16,15 +17,16 @@ function App() {
       <div className="App">
         <UserContext.Provider value={{ isLogged, setIsLogged }}>
           <Nav />
-          <div className="auth-wrapper">
-            <div className="auth-inner">
-              <Routes>
-                <Route exact path="/" element={<Login />} />
-                <Route path="/sign-in" element={<Login />} />
-                <Route path="/sign-up" element={<SignUp />} />
-              </Routes>
-            </div>
-          </div>
+          {isLogged ? (
+            <Routes>
+              <Route path="/" element={<Table />} />
+            </Routes>
+          ) : (
+            <Routes>
+              <Route exact path="/" element={<Login />} />
+              <Route path="/sign-up" element={<SignUp />} />
+            </Routes>
+          )}
         </UserContext.Provider>
       </div>
     </Router>
