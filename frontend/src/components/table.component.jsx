@@ -5,6 +5,7 @@ import { AiFillFolderAdd as Fold } from "react-icons/ai";
 import Table from "react-bootstrap/Table";
 import { FaAngleDoubleLeft as Left } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
+import React, { useState } from "react";
 export default function Altable() {
   const details = [
     {
@@ -56,7 +57,7 @@ export default function Altable() {
       </thead>
       <tbody>{filesList}</tbody>
       <Dropdown>
-        <Dropdown.Toggle className="upload-btn" variant="primary">
+        <Dropdown.Toggle className="upload-btn rotate" variant="primary">
           <Plus
             style={{
               fontSize: "1.2em",
