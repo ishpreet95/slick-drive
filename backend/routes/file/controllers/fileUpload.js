@@ -10,6 +10,7 @@ const fileUpload = async (req, res) => {
       });
     }
     const { parentFolder } = req.body;
+    const { filename } = req.body;
     if (!parentFolder) {
       return res.status(400).send({
         message: "Parent folder is required",
@@ -29,7 +30,7 @@ const fileUpload = async (req, res) => {
 
     const file = req.files[0];
     const newFile = await File.create({
-      name: file.filename,
+      name: filename,
       path: "./uploads/" + file.filename,
       parentFolder: req.body.parentFolder,
       type: file.mimetype,
