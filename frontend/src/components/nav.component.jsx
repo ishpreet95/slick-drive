@@ -1,16 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "../contexts/userContext";
 
 export default function Nav() {
   const { isLogged, setIsLogged } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const signOutHandler = (e) => {
     e.preventDefault();
     setIsLogged(false);
-    console.log(isLogged);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    navigate('/')
   };
 
   return (

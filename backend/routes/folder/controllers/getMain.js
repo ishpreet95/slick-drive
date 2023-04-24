@@ -10,9 +10,11 @@ const getMain = async (req, res) => {
         parentFolder: null,
       },
     });
+    const files = [];
     return res.status(200).json({
       status: "success",
       folders,
+      files,
     });
   } catch (err) {
     console.log(err);
