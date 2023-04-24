@@ -21,7 +21,7 @@ const getFolder = async (req, res) => {
         parentFolder: id,
       },
     });
-    const subFolders = await Folder.findAll({
+    const folders = await Folder.findAll({
       where: {
         parentFolder: id,
       },
@@ -30,7 +30,7 @@ const getFolder = async (req, res) => {
       status: "success",
       folder,
       files,
-      subFolders,
+      folders,
     });
   } catch (err) {
     console.log(err);

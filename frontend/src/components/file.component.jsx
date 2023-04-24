@@ -2,6 +2,8 @@ import { FcOpenedFolder } from "react-icons/fc";
 import { MdDownload as Down } from "react-icons/md";
 import { FcFile } from "react-icons/fc";
 import { MdOutlineDelete as Del } from "react-icons/md";
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
+
 export default function File(props) {
   const info = props.details;
   return (
@@ -23,33 +25,37 @@ export default function File(props) {
           />
         )}
       </td>
-      <td>{info.name}</td>
-      <td>{info.size}</td>
-      <td>{info.created}</td>
+      {info.type == "folder" ? (
+        <td>
+          <Link to={`/table/${info.id}`}>{info.name}</Link>
+        </td>
+      ) : (
+        <td>{info.name}</td>
+      )}
+      {info.type == "folder" ? <td>-</td> : <td>{info.size / 1000} KB</td>}
+      <td>{new Date(info.createdAt).toLocaleString()}</td>
       <td>
-        {info.actions[0] == "Download" ? (
-          <Down
-            style={{
-              color: "#167bff",
-              fontSize: "2em",
-              padding: "3px",
-              margin: "0 5px",
-            }}
-          />
+        {info.type === "folder" ? (
+          <span> - </span>
         ) : (
-          <span></span>
-        )}
-        {info.actions[1] == "Delete" ? (
-          <Del
-            style={{
-              color: "#167bff",
-              fontSize: "2em",
-              padding: "1px",
-              margin: "0 5px",
-            }}
-          />
-        ) : (
-          <span></span>
+          <>
+            <Down
+              style={{
+                color: "#167bff",
+                fontSize: "2em",
+                padding: "3px",
+                margin: "0 5px",
+              }}
+            />
+            <Del
+              style={{
+                color: "#167bff",
+                fontSize: "2em",
+                padding: "1px",
+                margin: "0 5px",
+              }}
+            />
+          </>
         )}
       </td>
     </tr>
