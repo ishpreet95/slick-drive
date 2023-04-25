@@ -5,6 +5,21 @@ export default function Example(props) {
   const [folderName, setFolderName] = useState("");
 
   const handleSubmit = (event) => {
+    const token = localStorage.getItem("token");
+    fetch(`http://localhost:3000/folder/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ name: folderName, parentFolder: props.parentfolder }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        window.location.reload();
+      })
+      .catch((err) => console.log(err));
     event.preventDefault();
     props.onHide();
   };

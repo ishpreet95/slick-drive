@@ -166,6 +166,7 @@ export default function Altable(props) {
       <Createfolder
         show={showCreateFolderModal}
         onHide={handleCloseCreateFolderModal}
+        parentfolder={id}
       />
     </Table>
   );
