@@ -16,7 +16,6 @@ export default function Example(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         window.location.reload();
       })
       .catch((err) => console.log(err));
@@ -33,12 +32,7 @@ export default function Example(props) {
         <Form onSubmit={handleSubmit}>
           <Form.Group className="" controlId="formFolderName">
             <Form.Label>Folder Name:</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter folder name"
-              value={folderName}
-              onChange={(e) => setFolderName(e.target.value)}
-            />
+            <Form.Control type="text" placeholder="Enter folder name" value={folderName} onChange={(e) => setFolderName(e.target.value)} />
           </Form.Group>
           <Button className="mt-2" variant="primary" type="submit">
             Create

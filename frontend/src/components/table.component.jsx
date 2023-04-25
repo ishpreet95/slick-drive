@@ -8,9 +8,10 @@ import { FaAngleDoubleLeft as Left } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useParams, useNavigate } from "react-router-dom";
 import Createfolder from "./createfolder.component";
+
 export default function Altable(props) {
   let { id } = useParams();
-  if (id === undefined || id === null  || id === "null") id = "";
+  if (id === undefined || id === null || id === "null") id = "";
   const [details, setDetails] = useState([]);
   const getDetails = async () => {
     const token = localStorage.getItem("token");
@@ -31,7 +32,7 @@ export default function Altable(props) {
   useEffect(() => {
     const getData = async () => {
       let data = await getDetails();
-      console.log(data);
+      // console.log(data);
       data = [
         ...data.folders.map((d) => {
           return { ...d, type: "folder" };
@@ -44,7 +45,7 @@ export default function Altable(props) {
   }, [id]);
 
   const filesList = details.map((detail) => <File details={detail} />);
-  
+
   const inputRef = useRef(null);
 
   const handleDisplayFileDetails = () => {
@@ -98,22 +99,29 @@ export default function Altable(props) {
         },
       });
       const data = await response.json();
-      return navigate(`/table/${data.parentFolder}`)
+      return navigate(`/table/${data.parentFolder}`);
     } catch (err) {
       console.log(err);
     }
-  }
+  };
+
+  const handleBackButtonClick = () => {
+    if (id === "") return;
+    navigate(-1)
+  };
 
   return (
     <Table striped bordered hover className="file-table">
       <thead>
         <tr>
           <th>
-            <Left
-              style={{
-                fontSize: "1.5em",
-              }}
-            />
+            {/* <Link to={`/table/${backFolder}`}> */}
+              <Left onClick={handleBackButtonClick}
+                style={{
+                  fontSize: "1.5em",
+                }}
+              />
+            {/* </Link> */}
           </th>
           <th>Name</th>
           <th>Size</th>
@@ -122,7 +130,13 @@ export default function Altable(props) {
         </tr>
       </thead>
       <tbody>{filesList}</tbody>
-      {filesList.length === 0 && id !== "" ? <tr as="button" onClick={handleFolderDelete}>Empty Folder - Delete?</tr> : ""}
+      {filesList.length === 0 && id !== "" ? (
+        <thead as="button" onClick={handleFolderDelete}>
+          Empty Folder - Delete?
+        </thead>
+      ) : (
+        ""
+      )}
       <Dropdown>
         <Dropdown.Toggle className="upload-btn rotate" variant="primary">
           <Plus
@@ -133,12 +147,7 @@ export default function Altable(props) {
           />
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <input
-            ref={inputRef}
-            onChange={handleDisplayFileDetails}
-            className="d-none"
-            type="file"
-          />
+          <input ref={inputRef} onChange={handleDisplayFileDetails} className="d-none" type="file" />
           <Dropdown.Item as="button" onClick={handleSubmit}>
             <Fil
               style={{
@@ -163,11 +172,7 @@ export default function Altable(props) {
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
-      <Createfolder
-        show={showCreateFolderModal}
-        onHide={handleCloseCreateFolderModal}
-        parentfolder={id}
-      />
+      <Createfolder show={showCreateFolderModal} onHide={handleCloseCreateFolderModal} parentfolder={id} />
     </Table>
   );
 }
