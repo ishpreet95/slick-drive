@@ -1,5 +1,5 @@
 import File from "./file.component";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { AiFillFileAdd as Fil } from "react-icons/ai";
 import { AiOutlinePlus as Plus } from "react-icons/ai";
 import { AiFillFolderAdd as Fold } from "react-icons/ai";
@@ -8,6 +8,7 @@ import { FaAngleDoubleLeft as Left } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useParams } from "react-router-dom";
 export default function Altable(props) {
+
   let { id } = useParams();
   if (id === undefined) id = "";
   const [details, setDetails] = useState([]);
@@ -42,6 +43,37 @@ export default function Altable(props) {
   }, [id]);
 
   const filesList = details.map((detail) => <File details={detail} />);
+  
+  const inputRef = useRef(null);
+
+  const handleDisplayFileDetails = () => {
+    if (inputRef.current?.files) {
+      const file = inputRef.current.files[0];
+      const formData = new FormData();
+      formData.append("files", file);
+      formData.append("parentFolder", id);
+      formData.append("filename", file.name);
+      const token = localStorage.getItem("token");
+      fetch(`http://localhost:3000/file/upload`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          window.location.reload();
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  const handleSubmit = (e) => {
+    inputRef.current?.click();
+    console.log("clicked");
+  };
+
   return (
     <Table striped bordered hover className="file-table">
       <thead>
@@ -70,7 +102,8 @@ export default function Altable(props) {
           />
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <Dropdown.Item href="#/action-1">
+          <input ref={inputRef} onChange={handleDisplayFileDetails} className="d-none" type="file" />
+          <Dropdown.Item as="button" onClick={handleSubmit}>
             <Fil
               style={{
                 color: "#167bff",
@@ -81,7 +114,7 @@ export default function Altable(props) {
             />
             Add File
           </Dropdown.Item>
-          <Dropdown.Item href="#/action-2">
+          <Dropdown.Item as="button">
             <Fold
               style={{
                 color: "#167bff",

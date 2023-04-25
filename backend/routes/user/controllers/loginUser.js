@@ -38,8 +38,12 @@ const loginUser = async (req, res) => {
         expiresIn: 86400,
       }
     );
-
-    return res.status(200).json({
+    // res.setHeader("Set-Cookie", "test=value");
+    // res.cookie("jwt", token, {
+    //   secure: true,
+    //   httpOnly: false,
+    // });
+    return res.status(200).send({
       status: "success",
       user: foundUser,
       token,
