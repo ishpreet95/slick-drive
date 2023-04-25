@@ -6,11 +6,11 @@ import { AiFillFolderAdd as Fold } from "react-icons/ai";
 import Table from "react-bootstrap/Table";
 import { FaAngleDoubleLeft as Left } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
-import { useParams } from "react-router-dom";
-export default function Altable(props) {
+import { useNavigate, useParams } from "react-router-dom";
 
+export default function Altable(props) {
   let { id } = useParams();
-  if (id === undefined) id = "";
+  if (id === undefined || id === null  || id === "null") id = "";
   const [details, setDetails] = useState([]);
   const getDetails = async () => {
     const token = localStorage.getItem("token");
@@ -31,6 +31,7 @@ export default function Altable(props) {
   useEffect(() => {
     const getData = async () => {
       let data = await getDetails();
+      console.log(data);
       data = [
         ...data.folders.map((d) => {
           return { ...d, type: "folder" };
@@ -43,7 +44,7 @@ export default function Altable(props) {
   }, [id]);
 
   const filesList = details.map((detail) => <File details={detail} />);
-  
+
   const inputRef = useRef(null);
 
   const handleDisplayFileDetails = () => {
@@ -74,6 +75,25 @@ export default function Altable(props) {
     console.log("clicked");
   };
 
+  const navigate = useNavigate();
+
+  const handleFolderDelete = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch(`http://localhost:3000/folder/delete/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      return navigate(`/table/${data.parentFolder}`)
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <Table striped bordered hover className="file-table">
       <thead>
@@ -92,6 +112,7 @@ export default function Altable(props) {
         </tr>
       </thead>
       <tbody>{filesList}</tbody>
+      {filesList.length === 0 && id !== "" ? <tr as="button" onClick={handleFolderDelete}>Empty Folder - Delete?</tr> : ""}
       <Dropdown>
         <Dropdown.Toggle className="upload-btn" variant="primary">
           <Plus

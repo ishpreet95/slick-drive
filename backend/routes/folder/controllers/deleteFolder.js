@@ -36,6 +36,7 @@ const deleteFolder = async (req, res) => {
         message: "Folder is not empty",
       });
     }
+    const parentFolder = folder.parentFolder;
     await Folder.destroy({
       where: {
         id,
@@ -44,6 +45,7 @@ const deleteFolder = async (req, res) => {
     return res.status(200).json({
       status: "success",
       folder,
+      parentFolder,
     });
   } catch (err) {
     console.log(err);
