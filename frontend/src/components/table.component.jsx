@@ -7,6 +7,7 @@ import Table from "react-bootstrap/Table";
 import { FaAngleDoubleLeft as Left } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useParams, useNavigate } from "react-router-dom";
+import Createfolder from "./createfolder.component";
 export default function Altable(props) {
   let { id } = useParams();
   if (id === undefined || id === null  || id === "null") id = "";
