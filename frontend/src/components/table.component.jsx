@@ -6,8 +6,7 @@ import { AiFillFolderAdd as Fold } from "react-icons/ai";
 import Table from "react-bootstrap/Table";
 import { FaAngleDoubleLeft as Left } from "react-icons/fa";
 import Dropdown from "react-bootstrap/Dropdown";
-import { useNavigate, useParams } from "react-router-dom";
-
+import { useParams, useNavigate } from "react-router-dom";
 export default function Altable(props) {
   let { id } = useParams();
   if (id === undefined || id === null  || id === "null") id = "";
@@ -44,7 +43,7 @@ export default function Altable(props) {
   }, [id]);
 
   const filesList = details.map((detail) => <File details={detail} />);
-
+  
   const inputRef = useRef(null);
 
   const handleDisplayFileDetails = () => {
@@ -73,6 +72,16 @@ export default function Altable(props) {
   const handleSubmit = (e) => {
     inputRef.current?.click();
     console.log("clicked");
+  };
+
+  const [showCreateFolderModal, setShowCreateFolderModal] = useState(false);
+
+  const handleCreateFolderClick = () => {
+    setShowCreateFolderModal(true);
+  };
+
+  const handleCloseCreateFolderModal = () => {
+    setShowCreateFolderModal(false);
   };
 
   const navigate = useNavigate();
@@ -114,7 +123,7 @@ export default function Altable(props) {
       <tbody>{filesList}</tbody>
       {filesList.length === 0 && id !== "" ? <tr as="button" onClick={handleFolderDelete}>Empty Folder - Delete?</tr> : ""}
       <Dropdown>
-        <Dropdown.Toggle className="upload-btn" variant="primary">
+        <Dropdown.Toggle className="upload-btn rotate" variant="primary">
           <Plus
             style={{
               fontSize: "1.2em",
@@ -123,7 +132,12 @@ export default function Altable(props) {
           />
         </Dropdown.Toggle>
         <Dropdown.Menu>
-          <input ref={inputRef} onChange={handleDisplayFileDetails} className="d-none" type="file" />
+          <input
+            ref={inputRef}
+            onChange={handleDisplayFileDetails}
+            className="d-none"
+            type="file"
+          />
           <Dropdown.Item as="button" onClick={handleSubmit}>
             <Fil
               style={{
@@ -135,7 +149,7 @@ export default function Altable(props) {
             />
             Add File
           </Dropdown.Item>
-          <Dropdown.Item as="button">
+          <Dropdown.Item as="button" onClick={handleCreateFolderClick}>
             <Fold
               style={{
                 color: "#167bff",
@@ -148,6 +162,10 @@ export default function Altable(props) {
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
+      <Createfolder
+        show={showCreateFolderModal}
+        onHide={handleCloseCreateFolderModal}
+      />
     </Table>
   );
 }
