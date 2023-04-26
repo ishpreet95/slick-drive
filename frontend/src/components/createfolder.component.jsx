@@ -12,7 +12,7 @@ export default function Example(props) {
   return (
     <Modal {...props} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Create New Folder</Modal.Title>
+        <Modal.Title>Add Folder</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
