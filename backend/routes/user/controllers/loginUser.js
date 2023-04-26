@@ -39,10 +39,7 @@ const loginUser = async (req, res) => {
       }
     );
     // res.setHeader("Set-Cookie", "test=value");
-    // res.cookie("jwt", token, {
-    //   secure: true,
-    //   httpOnly: false,
-    // });
+    // res.cookie("token", "hehe");
     return res.status(200).send({
       status: "success",
       user: foundUser,

@@ -3,7 +3,7 @@ const Folder = db.folder;
 
 const createFolder = async (req, res) => {
   try {
-    const { name, parentFolder } = req.body;
+    let { name, parentFolder } = req.body;
     if (!name) {
       return res.status(400).send({
         message: "Folder name is required",
@@ -11,6 +11,9 @@ const createFolder = async (req, res) => {
     }
     const user = req.user;
     owner = user.id;
+    if (parentFolder === "") {
+      parentFolder = null;
+    }
     if (parentFolder) {
       const parent = await Folder.findOne({
         where: {
